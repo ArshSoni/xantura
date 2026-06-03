@@ -14,7 +14,7 @@ export const useProducts = (id?: string) => {
 				setError(false);
 
 				const productRes = await getProducts(id);
-				if ( !productRes ) throw new Error();
+				if ( productRes === null ) throw new Error();
 
 				setProducts(productRes);
 			} catch {

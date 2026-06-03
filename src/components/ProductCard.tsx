@@ -9,13 +9,19 @@ interface ProductCardType {
 export const ProductCard = ({ product }: ProductCardType) => {
 	const { id, image, title, category, price } = product;
 
-	const { setSelectedProductId } = useProductContext()
+	const { setSelectedProductId } = useProductContext();
+
+	const formatLabel = (category: string): string => {
+		return category.split(' ')
+			.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+			.join(' ');
+	}
 
 	return (
 		<Link
 			to={`/product/${product.id}`}
 			onClick={() => setSelectedProductId(id)}
-			className="flex flex-col h-full bg-white rounded-lg shadow p-4 hover:shadow-lg"
+			className="flex flex-col h-full bg-white rounded-lg shadow p-4 hover:shadow-lg relative"
 		>
 			<img
 				className="h-40 w-full object-contain"
@@ -28,8 +34,8 @@ export const ProductCard = ({ product }: ProductCardType) => {
 					{title}
 				</h4>
 
-				<p className="text-sm text-gray-500">
-					{category}
+				<p className="absolute top-0 right-3 pl-2 pr-2 p-1 bg-amber-700 rounded-2xl text-xs text-white">
+					{formatLabel(category)}
 				</p>
 
 				<div className="mt-auto pt-3">
