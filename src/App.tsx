@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import './App.css'
 
 import { useProducts } from './hooks/useProducts'
+import { ProductCard } from './components/ProductCard';
 
 function App() {
   const { products, loading, error } = useProducts();
@@ -12,16 +13,8 @@ function App() {
     if ( !products ) return;
 
     return (
-      <div>
-        {products.map(p => (
-          <div key={p.id}>
-            <p>{p.title}</p>
-            <p>{p.price}</p>
-            <p>{p.category}</p>
-            <p>{p.image}</p>
-            <p>{p.description}</p>
-          </div>
-        ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {products.map(p => <ProductCard product={p} /> )}
       </div>
     )
   }, [products])
