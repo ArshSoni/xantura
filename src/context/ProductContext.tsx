@@ -1,6 +1,7 @@
 import { createContext, useContext } from 'react';
 
 import type { SortType } from '../components/Filters';
+import type { Product } from '../api';
 
 export interface State {
   selectedProductId: number | null;
@@ -10,6 +11,9 @@ export interface State {
 
 export type ProductContextType = {
   state: State;
+  products: Product[] | null,
+  productsLoading: boolean,
+  productsError: boolean;
   setSearchTerm: (value: string) => void;
   setSortOrder: (value: SortType | '') => void;
   setSelectedProductId: (value: number | null) => void;

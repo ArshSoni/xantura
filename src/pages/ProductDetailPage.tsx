@@ -1,15 +1,15 @@
 import { useParams, Link } from 'react-router-dom';
-
-import { useProducts } from '../hooks/useProducts';
 import { useProductContext } from '../context/ProductContext';
 
 export const ProductDetailPage = () => {
 	const { id } = useParams();
+	const {
+		products,
+		productsLoading: loading,
+		setSelectedProductId
+	} = useProductContext();
 
-	const { products, loading } = useProducts(id);
-	const foundProduct = products && products[0];
-
-	const { setSelectedProductId } = useProductContext();
+	const foundProduct = products?.find(p => p.id === Number(id));
 
 	if ( loading ) {
 		return <p>Loading product</p>

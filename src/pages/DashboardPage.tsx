@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useProducts, type ProductType } from '../hooks/useProducts';
+import { type ProductType } from '../hooks/useProducts';
 import { ProductCard } from '../components/ProductCard';
 import { SearchBar } from '../components/SearchBar';
 import { Filters } from '../components/Filters';
@@ -7,12 +7,7 @@ import { Filters } from '../components/Filters';
 import { useProductContext } from '../context/ProductContext';
 
 export const DashboardPage = () => {
-	// const [searchText, setSearchText] = useState('');
-	// const [filterType, setFilterType] = useState<SortType | ''>('');
-
-	const { state, setSearchTerm, setSortOrder, setSelectedProductId} = useProductContext();
-
-  const { products, loading, error } = useProducts();
+	const { state, products, productsLoading: loading, productsError: error, setSearchTerm, setSortOrder} = useProductContext();
 
 	const filteredProducts = useMemo(() => {
 		if ( !products ) return [];
@@ -52,7 +47,6 @@ export const DashboardPage = () => {
 						onChange={setSortOrder}
 					/>
 				</div>
-
 
         {filteredProducts.length === 0 ? (
 					<div>No results found</div>
