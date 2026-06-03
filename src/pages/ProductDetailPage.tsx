@@ -1,12 +1,15 @@
 import { useParams, Link } from 'react-router-dom';
 
 import { useProducts } from '../hooks/useProducts';
+import { useProductContext } from '../context/ProductContext';
 
 export const ProductDetailPage = () => {
 	const { id } = useParams();
 
 	const { products, loading } = useProducts(id);
 	const foundProduct = products && products[0];
+
+	const { setSelectedProductId } = useProductContext();
 
 	if ( loading ) {
 		return <p>Loading product</p>
@@ -19,7 +22,7 @@ export const ProductDetailPage = () => {
 	}
 	return (
 		<div>
-			<Link to="/" className="underline">Back</Link>
+			<Link to="/" className="underline" onClick={() => setSelectedProductId(null)}>Back</Link>
 			<img src={foundProduct.image} alt={foundProduct.title} />
 
 			<h1 className="text-3xl font-bold mt-6">{foundProduct.title}</h1>

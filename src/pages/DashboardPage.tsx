@@ -1,23 +1,26 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useProducts, type ProductType } from '../hooks/useProducts';
 import { ProductCard } from '../components/ProductCard';
 import { SearchBar } from '../components/SearchBar';
-import { Filters, type SortType } from '../components/Filters';
+import { Filters } from '../components/Filters';
+
+import { useProductContext } from '../context/ProductContext';
 
 export const DashboardPage = () => {
-	const [searchText, setSearchText] = useState('');
-	const [filterType, setFilterType] = useState<SortType | ''>('');
+	// const [searchText, setSearchText] = useState('');
+	// const [filterType, setFilterType] = useState<SortType | ''>('');
+
+	const { state, setSearchTerm, setSortOrder, setSelectedProductId} = useProductContext();
 
   const { products, loading, error } = useProducts();
-
 
 	const filteredProducts = useMemo(() => {
 		if ( !products ) return [];
 
 		const filtered = [...products]
-			.filter(p => p.title.toLowerCase().includes(searchText.toLowerCase()))
+			.filter(p => p.title.toLowerCase().includes(state.searchTerm.toLowerCase()))
 
-		switch (filterType) {
+		switch (state.sortOrder) {
 			case 'asc':
 				return [...filtered].sort((a, b) => a.price - b.price);
 			case 'desc':
@@ -25,7 +28,7 @@ export const DashboardPage = () => {
 			default:
 				return filtered;
 		}
-	}, [products, searchText, filterType])
+	}, [products, state.searchTerm, state.sortOrder])
 
   if (loading) {
     return <p>Loading</p>
@@ -39,8 +42,15 @@ export const DashboardPage = () => {
     <>
       <section id="center">
 				<div className="flex gap-4 mb-6 justify-center">
-					<SearchBar value={searchText} onChange={setSearchText}/>
-					<Filters value={filterType} onChange={setFilterType} />
+					<SearchBar
+						value={state.searchTerm}
+						onChange={setSearchTerm}
+					/>
+
+					<Filters
+						value={state.sortOrder}
+						onChange={setSortOrder}
+					/>
 				</div>
 
 

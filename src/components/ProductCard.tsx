@@ -1,17 +1,22 @@
 import { Link } from 'react-router-dom';
 import type { Product } from '../api';
+import { useProductContext } from '../context/ProductContext';
 
 interface ProductCardType {
 	product: Product
 }
 
 export const ProductCard = ({ product }: ProductCardType) => {
-	const { image, title, category, price } = product;
+	const { id, image, title, category, price } = product;
+
+	const { setSelectedProductId } = useProductContext()
 
 	return (
 		<Link
 			to={`/product/${product.id}`}
-			className="flex flex-col items-stretch bg-white rounded-lg shadow p-4 hover:shadow-lg">
+			className="flex flex-col items-stretch bg-white rounded-lg shadow p-4 hover:shadow-lg"
+			onClick={() => setSelectedProductId(id) }
+		>
 			<img
 				className="h-40 w-full object-contain"
 				src={image}
