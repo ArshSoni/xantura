@@ -15,14 +15,21 @@ export interface Product {
 	rating: Rating
 }
 
-export const getProducts = async (): Promise<Product[] | null> => {
-	const productsUrl = 'https://fakestoreapi.com/products';
+export const getProducts = async (id?: string): Promise<Product[] | null> => {
+	const allProductsUrl = 'https://fakestoreapi.com/products';
+	const specificProductUrl = `https://fakestoreapi.com/products/${id}`;
+
+	const url = id ? specificProductUrl : allProductsUrl
 
 	try {
-		const res = await fetch(productsUrl);
+		const res = await fetch(url);
 		if ( !res.ok ) throw new Error();
 
-		return await res.json();
+		const items = await res.json();
+
+		if ( Array.isArray(items) ) return items;
+
+		return [items]
 
 	} catch (e: unknown ){
 		console.error('Error', e);

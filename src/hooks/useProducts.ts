@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getProducts, type Product } from '../api';
 
-export const useProducts = () => {
+export const useProducts = (id?: string) => {
 	const [products, setProducts] = useState<Product[] | null>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
@@ -11,7 +11,7 @@ export const useProducts = () => {
 			try {
 				setError(false);
 
-				const productRes = await getProducts();
+				const productRes = await getProducts(id);
 				if ( !productRes ) throw new Error();
 
 				setProducts(productRes);
@@ -23,7 +23,7 @@ export const useProducts = () => {
 		}
 
 		fetchProducts();
-	}, []);
+	}, [id]);
 
 	return {
 		products,

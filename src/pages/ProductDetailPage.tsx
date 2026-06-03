@@ -1,13 +1,16 @@
 import { useParams, Link } from 'react-router-dom';
 
 import { useProducts } from '../hooks/useProducts';
-import type { Product } from '../api';
 
 export const ProductDetailPage = () => {
 	const { id } = useParams();
-	const { products } = useProducts();
 
-	const foundProduct = products?.find((p: Product) => p.id === Number(id));
+	const { products, loading } = useProducts(id);
+	const foundProduct = products && products[0];
+
+	if ( loading ) {
+		return <p>Loading product</p>
+	}
 
 	if ( !foundProduct ) {
 		return (
