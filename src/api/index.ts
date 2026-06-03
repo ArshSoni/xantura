@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export type Rating = {
 	count: number;
 	rate: number;

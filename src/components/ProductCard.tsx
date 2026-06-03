@@ -14,8 +14,8 @@ export const ProductCard = ({ product }: ProductCardType) => {
 	return (
 		<Link
 			to={`/product/${product.id}`}
-			className="flex flex-col items-stretch bg-white rounded-lg shadow p-4 hover:shadow-lg"
-			onClick={() => setSelectedProductId(id) }
+			onClick={() => setSelectedProductId(id)}
+			className="flex flex-col h-full bg-white rounded-lg shadow p-4 hover:shadow-lg"
 		>
 			<img
 				className="h-40 w-full object-contain"
@@ -23,12 +23,20 @@ export const ProductCard = ({ product }: ProductCardType) => {
 				alt={title}
 			/>
 
-			<h4 className="mt-3 font-semibold">{title}</h4>
-			<p className="text-sm">{category}</p>
+			<div className="flex flex-col flex-1">
+				<h4 className="mt-3 font-semibold line-clamp-2">
+					{title}
+				</h4>
 
-			<div className="mt-2">
-				<span className="font-bold">£{price}</span>
+				<p className="text-sm text-gray-500">
+					{category}
+				</p>
+
+				<div className="mt-auto pt-3">
+					<span className="font-bold">£{price}</span>
+				</div>
 			</div>
+
 		</Link>
 	)
 

@@ -8,7 +8,7 @@ export const SearchBar = ({
 	onChange
 }: SearchBarProps) => {
 	return (
-		<div>
+		<div className="w-full">
 			<input
 				type="text"
 				placeholder="Search for a product"

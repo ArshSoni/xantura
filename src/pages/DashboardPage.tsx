@@ -1,13 +1,20 @@
 import { useMemo } from 'react';
-import { type ProductType } from '../hooks/useProducts';
 import { ProductCard } from '../components/ProductCard';
 import { SearchBar } from '../components/SearchBar';
 import { Filters } from '../components/Filters';
 
 import { useProductContext } from '../context/ProductContext';
+import { Spinner } from '../components/Spinner';
 
 export const DashboardPage = () => {
-	const { state, products, productsLoading: loading, productsError: error, setSearchTerm, setSortOrder} = useProductContext();
+	const {
+		state,
+		products,
+		productsLoading: loading,
+		productsError: error,
+		setSearchTerm,
+		setSortOrder
+	} = useProductContext();
 
 	const filteredProducts = useMemo(() => {
 		if ( !products ) return [];
@@ -26,7 +33,7 @@ export const DashboardPage = () => {
 	}, [products, state.searchTerm, state.sortOrder])
 
   if (loading) {
-    return <p>Loading</p>
+    return <Spinner />
   }
 
   if (error) {
@@ -35,7 +42,7 @@ export const DashboardPage = () => {
 
   return (
     <>
-      <section id="center">
+      <section id="center" className='p-4'>
 				<div className="flex gap-4 mb-6 justify-center">
 					<SearchBar
 						value={state.searchTerm}
@@ -48,15 +55,13 @@ export const DashboardPage = () => {
 					/>
 				</div>
 
-        {filteredProducts.length === 0 ? (
-					<div>No results found</div>
-				) : (
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-						{filteredProducts.map((p: ProductType) =>
-							<ProductCard key={p.id} product={p} />
-						)}
+        {filteredProducts.length === 0 && <div>No results found</div>}
+
+				{filteredProducts.length > 0 && (
+					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-4">
+						{filteredProducts.map(p => <ProductCard key={p.id} product={p} />)}
 					</div>
-				) }
+				)}
       </section>
     </>
   )
