@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import type { Product } from '../api';
 
 interface ProductCardType {
@@ -8,7 +9,9 @@ export const ProductCard = ({ product }: ProductCardType) => {
 	const { image, title, category, price } = product;
 
 	return (
-		<div className="flex flex-col items-stretch bg-white rounded-lg shadow p-4 hover:shadow-lg">
+		<Link
+			to={`/product/${product.id}`}
+			className="flex flex-col items-stretch bg-white rounded-lg shadow p-4 hover:shadow-lg">
 			<img
 				className="h-40 w-full object-contain"
 				src={image}
@@ -21,7 +24,7 @@ export const ProductCard = ({ product }: ProductCardType) => {
 			<div className="mt-2">
 				<span className="font-bold">£{price}</span>
 			</div>
-		</div>
+		</Link>
 	)
 
 }
