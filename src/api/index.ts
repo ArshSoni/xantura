@@ -16,7 +16,7 @@ export interface Product {
 }
 
 export const getProducts = async (): Promise<Product[] | null> => {
-	const productsUrl = 'https://fakestoreapi.com/productss';
+	const productsUrl = 'https://fakestoreapi.com/products';
 
 	try {
 		const res = await fetch(productsUrl);
