@@ -9,6 +9,9 @@ export interface State {
   sortOrder: SortType | '';
 }
 
+/**
+ * to load products within provider
+ */
 export type ProductContextType = {
   state: State;
   products: Product[] | null,

@@ -5,6 +5,7 @@ import { Filters } from '../components/Filters';
 
 import { useProductContext } from '../context/ProductContext';
 import { Spinner } from '../components/Spinner';
+import { filterProductsBySearchTerm, filterProductsBySortOrder } from '../helpers';
 
 export const DashboardPage = () => {
 	const {
@@ -19,17 +20,11 @@ export const DashboardPage = () => {
 	const filteredProducts = useMemo(() => {
 		if ( !products ) return [];
 
-		const filtered = [...products]
-			.filter(p => p.title.toLowerCase().includes(state.searchTerm.toLowerCase()))
+		const filteredBySearch = filterProductsBySearchTerm(products, state.searchTerm);
 
-		switch (state.sortOrder) {
-			case 'asc':
-				return [...filtered].sort((a, b) => a.price - b.price);
-			case 'desc':
-				return [...filtered].sort((a, b) => b.price - a.price);
-			default:
-				return filtered;
-		}
+		const filteredBySortOrder = filterProductsBySortOrder(filteredBySearch, state.sortOrder);
+
+		return filteredBySortOrder;
 	}, [products, state.searchTerm, state.sortOrder])
 
   if (loading) {

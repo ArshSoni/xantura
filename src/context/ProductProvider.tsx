@@ -16,6 +16,10 @@ const initialState: State = {
 export function ProductProvider({ children }: ProviderType) {
   const [state, setState] = useState<State>(initialState);
 
+  /**
+   * call products hook here so all components can use this data
+   * TO prevent fetching again on product detail page
+   */
   const { products, error, loading } = useProducts();
 
   const setSearchTerm = (value: string) => {

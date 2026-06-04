@@ -1,3 +1,5 @@
+import type { Product } from "../api";
+import type { SortType } from "../components/Filters";
 
 /**
  * Returns uppercase first character of each word for category
@@ -22,5 +24,27 @@ export const getCategoryColour = (category: string): string => {
 			return 'bg-pink-600';
 		default:
 			return 'bg-gray-600';
+	}
+}
+
+export const filterProductsBySearchTerm = (products: Product[], searchTerm: string): Product[] => {
+	if ( !products ) return [];
+
+	const filtered = [...products]
+		.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()));
+
+	return filtered;
+}
+
+export const filterProductsBySortOrder = (products: Product[], sortOrder: SortType | ''): Product[] => {
+	if ( !products ) return [];
+
+	switch (sortOrder) {
+		case 'asc':
+			return [...products].sort((a, b) => a.price - b.price);
+		case 'desc':
+			return [...products].sort((a, b) => b.price - a.price);
+		default:
+			return products;
 	}
 }
