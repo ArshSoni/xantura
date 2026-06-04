@@ -1,73 +1,68 @@
-# React + TypeScript + Vite
+# Xantura React Developer Test
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains the Xantura mini product dashboard task built with React, TypeScript, Vite, React Router, and Tailwind-style utility classes.
 
-Currently, two official plugins are available:
+## What this project includes
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Product list fetched from the Fake Store API
+- Search and sort controls
+- Responsive card grid layout
+- Detail view on a separate route
+- Shared state using React Context
+- Loading, error, and empty states handled
 
-## React Compiler
+## Run locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Install dependencies:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Start the development server:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Open the app in the browser at:
+
+```text
+http://localhost:5173
+```
+
+## Build for production
+
+```bash
+npm run build
+```
+
+Preview the production build locally:
+
+```bash
+npm run preview
+```
+
+## Notes
+
+- This project is the Xantura React Developer Test submission.
+- The app uses client-side rendering and React Router for navigation.
+- Shared UI state is managed in `src/context/ProductProvider.tsx`.
+- Product data is fetched in `src/hooks/useProducts.ts`.
+
+## Project structure
+
+- `src/pages/` — page-level components
+- `src/components/` — reusable UI components
+- `src/context/` — shared state provider and hook
+- `src/hooks/` — data-fetching hook
+- `src/api/` — API definitions and fetch helpers
+- `src/helpers/` — utility functions
+
+## Helpful commands
+
+- `npm run dev` — run development server
+- `npm run build` — build production assets
+- `npm run preview` — preview production build
+- `npm run lint` — run ESLint checks
+- `npm test` — run tests
