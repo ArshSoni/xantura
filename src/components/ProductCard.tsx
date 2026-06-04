@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import type { Product } from '../api';
 import { useProductContext } from '../context/ProductContext';
+import { formatCategory, getCategoryColour } from '../helpers';
 
 interface ProductCardType {
 	product: Product
@@ -11,11 +12,6 @@ export const ProductCard = ({ product }: ProductCardType) => {
 
 	const { setSelectedProductId } = useProductContext();
 
-	const formatLabel = (category: string): string => {
-		return category.split(' ')
-			.map(word => word.charAt(0).toUpperCase() + word.slice(1))
-			.join(' ');
-	}
 
 	return (
 		<Link
@@ -34,12 +30,12 @@ export const ProductCard = ({ product }: ProductCardType) => {
 					{title}
 				</h4>
 
-				<p className="absolute top-0 right-3 pl-2 pr-2 p-1 bg-amber-700 rounded-2xl text-xs text-white">
-					{formatLabel(category)}
+				<p className={`absolute top-0 right-3 pl-2 pr-2 p-1 rounded-2xl text-xs text-white ${getCategoryColour(category)}`}>
+					{formatCategory(category)}
 				</p>
 
 				<div className="mt-auto pt-3">
-					<span className="font-bold">£{price}</span>
+					<span className="font-bold">£{price.toFixed(2)}</span>
 				</div>
 			</div>
 

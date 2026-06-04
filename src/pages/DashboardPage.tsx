@@ -43,7 +43,7 @@ export const DashboardPage = () => {
   return (
     <>
       <section id="center" className='p-4'>
-				<div className="flex gap-4 mb-6 justify-center">
+				<div className="flex gap-4 mb-6 p-6 justify-center">
 					<SearchBar
 						value={state.searchTerm}
 						onChange={setSearchTerm}
