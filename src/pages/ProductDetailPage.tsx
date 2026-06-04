@@ -1,17 +1,17 @@
-import { Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useProductContext } from '../context/ProductContext';
 import { Spinner } from '../components/Spinner';
 import { formatCategory, getCategoryColour } from '../helpers';
 
 export const ProductDetailPage = () => {
+	const { id } = useParams();
 	const {
-		state,
 		products,
 		productsLoading: loading,
 		setSelectedProductId
 	} = useProductContext();
 
-	const foundProduct = products?.find(p => p.id === Number(state.selectedProductId));
+	const foundProduct = products?.find(p => p.id === Number(id));
 
 	if ( loading ) {
 		return <Spinner />
